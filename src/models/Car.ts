@@ -1,5 +1,5 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
-import { User } from "./User"
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./User";
 import { Appointment } from "./Appointment";
 
 @Entity('cars')
@@ -19,12 +19,11 @@ export class Car extends BaseEntity {
     @Column({ name: "year" })
     year!: number;
 
-    //-----------
-    @ManyToOne(()=> User, (user) => user.cars)
-    @JoinColumn({name: "user_id"})
+    @ManyToOne(() => User, (user) => user.cars)
+    @JoinColumn({ name: "user_id" })
     user!: User;
 
-    @OneToMany(()=> Appointment, (appointment)=>appointment.service)
-    apointments?: Appointment[];
-
+    @OneToMany(() => Appointment, (appointment) => appointment.car)
+    appointments?: Appointment[];
 }
+
