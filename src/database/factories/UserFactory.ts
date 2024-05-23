@@ -3,7 +3,7 @@ import { Role } from "../../models/Role";
 import { Factory } from "./Factory";
 import { faker } from "@faker-js/faker";
 import bcrypt from "bcrypt";
-import { UserRoles } from "../../constants/UserRoles"; // Asegúrate de tener este archivo correctamente configurado
+import { UserRoles } from "../../constants/UserRoles"; 
 
 export class UserFactory extends Factory<User>{
     protected generate(): User {
@@ -19,10 +19,9 @@ export class UserFactory extends Factory<User>{
             firstName: faker.person.firstName(),
             lastName: faker.person.lastName(),
             province: faker.location.state(),
-            phone: faker.phone.number(),
+            phone: faker.string.numeric(9),
             password: bcrypt.hashSync("12345678", 10),
             email: faker.internet.email(),
-            workerType: workerType as 'mechanic' | 'quick_service' | 'painter' | 'bodyworker' | null,
             avatar: faker.image.avatar(),
             isActive: true,
             role: role

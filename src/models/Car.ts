@@ -1,6 +1,7 @@
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
 import { Appointment } from "./Appointment";
+import { UserCar } from "./UserCar";
 
 @Entity('cars')
 export class Car extends BaseEntity {
@@ -25,5 +26,9 @@ export class Car extends BaseEntity {
 
     @OneToMany(() => Appointment, (appointment) => appointment.car)
     appointments?: Appointment[];
+    
+
+    @OneToMany(() => UserCar, (userCar) => userCar.car)
+    userCars!: UserCar[];
 }
 

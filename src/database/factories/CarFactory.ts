@@ -2,6 +2,7 @@
 import { Car } from "../../models/Car";
 import { Factory } from "./Factory";
 import { faker } from "@faker-js/faker";
+import { User } from "../../models/User";
 
 function generateLicensePlate(): string {
     const letters = Array.from({ length: 3 }, () => faker.string.alpha({ casing: 'upper' })).join('');
@@ -18,5 +19,11 @@ export class CarFactory extends Factory<Car> {
             model: faker.vehicle.model(),
             year: pastDate.getFullYear(),
         });
+    }
+
+    generateWithUser(user: User): Car {
+        const car = this.generate();
+        car.user = user;
+        return car;
     }
 }

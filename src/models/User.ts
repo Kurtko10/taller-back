@@ -51,4 +51,5 @@ export class User extends BaseEntity {
 
     @OneToMany(() => Appointment, (appointment) => appointment.userWorker)
     workerAppointments!: Appointment[];
+    userCars: any;
 }
