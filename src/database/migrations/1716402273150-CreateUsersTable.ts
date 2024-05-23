@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateUsersTable1709965467557 implements MigrationInterface {
 
@@ -12,7 +12,7 @@ export class CreateUsersTable1709965467557 implements MigrationInterface {
                     isPrimary: true,
                     isGenerated: true,
                     generationStrategy: 'increment',
-                },           
+                },
                 {
                     name: 'first_name',
                     type: 'varchar',
@@ -33,7 +33,7 @@ export class CreateUsersTable1709965467557 implements MigrationInterface {
                     type: 'varchar',
                     isUnique: true,
                 },
-                 {
+                {
                     name: 'password',
                     type: 'varchar',
                     length: "255",
@@ -42,28 +42,34 @@ export class CreateUsersTable1709965467557 implements MigrationInterface {
                     name: "is_active",
                     type: "boolean",
                     default: true,
-                 },
+                },
                 {
                     name: 'role_id',
                     type: 'int',
                 },
-            ], 
-            foreignKeys:[
                 {
-                columnNames: ['role_id'],
-                referencedColumnNames: ['id'],
-                referencedTableName: 'roles', 
+                    name: 'worker_type',
+                    type: 'enum',
+                    enum: ['mechanic', 'quick_service', 'painter', 'bodyworker'],
+                    isNullable: true,
+                },
+                {
+                    name: 'avatar',
+                    type: 'varchar',
+                    isNullable: true,
                 },
             ],
-        }), true
-        
-        );
-
-       
+            foreignKeys: [
+                {
+                    columnNames: ['role_id'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'roles',
+                },
+            ],
+        }), true);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('users');
     }
-
 }
