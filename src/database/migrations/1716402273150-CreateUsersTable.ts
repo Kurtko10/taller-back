@@ -24,6 +24,11 @@ export class CreateUsersTable1709965467557 implements MigrationInterface {
                     length: "50",
                 },
                 {
+                    name: 'province',
+                    type: 'varchar',
+                    length: "50",
+                },
+                {
                     name: 'email',
                     type: 'varchar',
                     isUnique: true,

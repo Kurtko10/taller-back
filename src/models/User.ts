@@ -13,8 +13,12 @@ export class User extends BaseEntity {
     @Column({ name: "last_name", length: 50 })
     lastName!: string;
     
+    @Column({ name: "province", length:50 })
+    province!: string;
+    
     @Column({ name: "email", unique: true })
     email!: string;
+
 
     @Column({ name: "phone", unique: true })
     phone!: string;
