@@ -1,6 +1,7 @@
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Role } from "./Role"
 import { Car } from "./Car";
+import { Appointment } from "./Appointment";
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -15,7 +16,7 @@ export class User extends BaseEntity {
     
     @Column({ name: "province", length:50 })
     province!: string;
-    
+
     @Column({ name: "email", unique: true })
     email!: string;
 
@@ -47,4 +48,7 @@ export class User extends BaseEntity {
 
     @OneToMany(() => Car, (car) => car.user)
     cars!: Car[];
+
+    @OneToMany(() => Appointment, (appointment) => appointment.userWorker)
+    workerAppointments!: Appointment[];
 }

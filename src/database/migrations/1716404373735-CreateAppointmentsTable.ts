@@ -18,10 +18,6 @@ export class CreateAppointmentsTable1716404373735 implements MigrationInterface 
                     type: "datetime",
                 },
                 {
-                    name: "observations",
-                    type: "text",
-                },
-                {
                     name: 'status',
                     type: 'varchar',
                     length: '50',
@@ -45,7 +41,11 @@ export class CreateAppointmentsTable1716404373735 implements MigrationInterface 
                     name: 'service_id',
                     type: 'int',
                     isNullable: true,
-                   
+                    
+                },
+                {
+                    name: "observations",
+                    type: "text",
                 },
             ],
         }), true);
