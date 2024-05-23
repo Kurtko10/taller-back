@@ -1,7 +1,7 @@
 import { Role } from "../models/Role";
 
 export const UserRoles = {
-    ADMIN : {id:1,name: 'admin'}as Role,
-    MANAGER: {id:2, name:'manager'} as Role,
-    CLIENT: {id:3, name: 'user'}as Role,
+    ADMIN: Object.assign(new Role(), { id: 1, name: 'admin' }),
+    MANAGER: Object.assign(new Role(), { id: 2, name: 'manager' }),
+    CLIENT: Object.assign(new Role(), { id: 3, name: 'user' }),
 };
