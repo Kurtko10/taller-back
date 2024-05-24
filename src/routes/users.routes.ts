@@ -16,5 +16,14 @@ router.get("/role/clients", userController.getByClientRole);
 // Obtener todos los clientes
 router.get("/role/managers", userController.getByManagerRole);
 
+
+// Crear usuario
+router.post("/",userController.create);
+// Actualizar usuario por ID
+router.put("/:id",userController.update);
+
+// Eliminar usuario
+router.delete("/:id",userController.delete);
+
 export default router;
 
