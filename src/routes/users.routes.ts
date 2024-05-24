@@ -25,5 +25,6 @@ router.put("/:id",userController.update);
 // Eliminar usuario
 router.delete("/:id",userController.delete);
 
+
 export default router;
 
