@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
 import { User } from "./User";
 import { Car } from "./Car";
 
@@ -6,12 +6,6 @@ import { Car } from "./Car";
 export class UserCar extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number;
-
-    @Column()
-    user_id!: number;
-
-    @Column()
-    car_id!: number;
 
     @ManyToOne(() => User, (user) => user.userCars)
     @JoinColumn({ name: 'user_id' })

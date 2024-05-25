@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateCarsTable1716402925909 implements MigrationInterface {
 
@@ -12,7 +12,7 @@ export class CreateCarsTable1716402925909 implements MigrationInterface {
                     isPrimary: true,
                     isGenerated: true,
                     generationStrategy: 'increment',
-                },           
+                },
                 {
                     name: 'license_plate',
                     type: 'varchar',
@@ -32,20 +32,10 @@ export class CreateCarsTable1716402925909 implements MigrationInterface {
                 {
                     name: 'year',
                     type: 'int',
-                    width: 4, 
-                },
-                {
-                    name: 'user_id',
-                    type: 'int',
+                    width: 4,
                 },
             ],
         }), true);
-
-        await queryRunner.createForeignKey('cars', new TableForeignKey({
-            columnNames: ['user_id'],
-            referencedColumnNames: ['id'],
-            referencedTableName: 'users'
-        }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

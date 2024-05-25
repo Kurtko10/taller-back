@@ -1,5 +1,4 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./User";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Appointment } from "./Appointment";
 import { UserCar } from "./UserCar";
 
@@ -20,15 +19,11 @@ export class Car extends BaseEntity {
     @Column({ name: "year" })
     year!: number;
 
-    @ManyToOne(() => User, (user) => user.cars)
-    @JoinColumn({ name: "user_id" })
-    user!: User;
-
     @OneToMany(() => Appointment, (appointment) => appointment.car)
     appointments?: Appointment[];
-    
 
     @OneToMany(() => UserCar, (userCar) => userCar.car)
     userCars!: UserCar[];
 }
+
 

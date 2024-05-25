@@ -4,11 +4,11 @@ import { User } from "../models/User";
 
 
 export const carController = {
-    // Obtener todos los coches con la información del usuario dueño
-    async getAllCars(req: Request, res: Response): Promise<void> {
+     // Obtener todos los coches con la información de los usuarios asociados
+     async getAllCars(req: Request, res: Response): Promise<void> {
         try {
             const cars = await Car.find({
-                relations: ["userCars", "user"], // Cargar relaciones necesarias
+                relations: ["userCars", "userCars.user"], // Cargar relaciones necesarias
             });
 
             const result = cars.map(car => ({

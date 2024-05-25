@@ -21,9 +21,9 @@ export class CarFactory extends Factory<Car> {
         });
     }
 
-    generateWithUser(user: User): Car {
-        const car = this.generate();
-        car.user = user;
-        return car;
-    }
+    // generateWithUser(user: User): Car {
+    //     const car = this.generate();
+    //     car.user = user;
+    //     return car;
+    // }
 }
