@@ -1,14 +1,15 @@
 import express from "express";
 import { appointmentController } from "../controllers/appointmentController";
 import { auth } from "../middlewares/auth";
+import { authorize } from "../middlewares/authorize";
 //import { authorize } from "../middlewares/authorize";
 
 const router = express.Router();
 
 // Citas totales ADMIN
-router.get('/', appointmentController.getAllAppointments);
+router.get('/',auth,authorize([]), appointmentController.getAllAppointments);
 // Citas de un trabajador
-router.get('/worker', auth, appointmentController.getAppointmentsByWorkerId);
+router.get('/worker', auth,authorize(["manager"]), appointmentController.getAppointmentsByWorkerId);
 
 // Citas de un cliente
 router.get('/client/:clientId?', auth, appointmentController.getAppointmentsByClientId);
@@ -20,10 +21,10 @@ router.get('/:id', auth, appointmentController.getAppointmentById);
 router.post('/', auth, appointmentController.createAppointment);
 
 // Ruta para actualizar una cita específica
-router.put('/:id',auth, appointmentController.updateAppointment);
+router.put('/:id',auth,authorize(["manager", "user"]), appointmentController.updateAppointment);
 
 // Eliminar una cita
-router.delete('/:id', auth, appointmentController.deleteAppointment);
+router.delete('/:id', auth,authorize(["user"]), appointmentController.deleteAppointment);
 
 
 export default router;
