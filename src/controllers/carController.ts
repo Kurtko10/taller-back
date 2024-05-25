@@ -32,8 +32,8 @@ export const carController = {
             res.status(500).json({ message: "Error al obtener los coches" });
         }
     },
-     // Ver vehículos de un usuario
-async getUserCar(req: Request, res: Response): Promise<void> {
+    // Ver vehículos de un usuario
+    async getUserCar(req: Request, res: Response): Promise<void> {
     try {
         const userId = req.tokenData.userId;
         console.log('User ID:', userId);
@@ -73,9 +73,9 @@ async getUserCar(req: Request, res: Response): Promise<void> {
             message: "Failed to retrieve car",
         });
     }
-},
- // Función añadir vehículo
- async addUserCar(req: Request, res: Response): Promise<void> {
+    },
+    // Función añadir vehículo
+    async addUserCar(req: Request, res: Response): Promise<void> {
     try {
         const userId = req.tokenData.userId;
         const { licensePlate, carBrand, model, year } = req.body;
@@ -125,9 +125,9 @@ async getUserCar(req: Request, res: Response): Promise<void> {
             message: "Failed to add car",
         });
     }
-},
-// Función eliminar vehículo
-async deleteUserCar(req: Request, res: Response): Promise<void> {
+    },
+    // Función eliminar vehículo
+    async deleteUserCar(req: Request, res: Response): Promise<void> {
     try {
         const userId = req.tokenData.userId;
         const carId = Number(req.params.carId);
@@ -158,7 +158,7 @@ async deleteUserCar(req: Request, res: Response): Promise<void> {
             message: "Failed to delete car",
         });
     }
-}
+    }
 
 
     };

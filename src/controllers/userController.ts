@@ -9,8 +9,74 @@ import { tr } from "@faker-js/faker";
 
 export const userController ={
 
+    // Eliminar usuario
+    async delete(req: Request, res: Response): Promise<void> {
+            try {
+              const userId = Number(req.params.id);
+        
+              const deleteResult = await User.delete(userId);
+        
+              if (deleteResult.affected === 0) {
+                res.status(404).json({ message: "Usuario no existe" });
+                return;
+              }
+        
+              res.status(200).json({ message: `Usuario con ID: ${userId} ELIMINADO`});
+            } catch (error) {
+              res.status(500).json({ message: "Error al borrar" });
+            }
+    },
+        
+    // Crear usuario
+    async create(req: Request, res: Response): Promise<void> {
+                try {
+                    const { firstName, lastName, email, phone, password, province, isActive, roleId, workerType } = req.body;
+                    console.log("Datos recibidos:", JSON.stringify(req.body, null, 2));
+        
+                    if (!firstName || !lastName || !phone || !email || !password || isActive === undefined || !roleId) {
+                        res.status(400).json({ message: "All fields must be provided" });
+                        return;
+                    }
+        
+                    const hashedPassword = await bcrypt.hash(password, 10);
+        
+                    const role = await Role.findOne({ where: { id: roleId } });
+                    if (!role) {
+                        res.status(400).json({ message: "Invalid role ID" });
+                        return;
+                    }
+        
+                    const newUser = User.create({
+                        firstName: firstName,
+                        lastName: lastName,
+                        province: province,
+                        email: email,
+                        phone: phone,
+                        password: hashedPassword,
+                        isActive: isActive,
+                        role: role,
+                        avatar: "https://avatars.githubusercontent.com/u/27661552", // Valor por defecto para avatar
+                    });
+        
+                    if (role.name === 'manager') {
+                        const validWorkerTypes = ['mechanic', 'quick_service', 'painter', 'bodyworker'];
+                        if (!workerType || !validWorkerTypes.includes(workerType)) {
+                            res.status(400).json({ message: "Invalid or missing worker type for manager role" });
+                            return;
+                        }
+                        newUser.workerType = workerType;
+                    }
+        
+                    await newUser.save();
+        
+                    res.status(201).json({ message: "User has been created", user: newUser });
+                } catch (error) {
+                    console.error(error);
+                    res.status(500).json({ message: "Error al crear usuario" });
+                }
+    },
 
-    // Obtener todos los usuarios
+    // Obtener todos los usuarios ADMIN 
       async getAllUsers(req: Request, res: Response): Promise<void> {
         try {
             const [users, totalUsers] = await User.findAndCount({
@@ -106,75 +172,10 @@ export const userController ={
     },
 
 
-      // Eliminar usuario
-  async delete(req: Request, res: Response): Promise<void> {
-    try {
-      const userId = Number(req.params.id);
 
-      const deleteResult = await User.delete(userId);
-
-      if (deleteResult.affected === 0) {
-        res.status(404).json({ message: "Usuario no existe" });
-        return;
-      }
-
-      res.status(200).json({ message: `Usuario con ID: ${userId} ELIMINADO`});
-    } catch (error) {
-      res.status(500).json({ message: "Error al borrar" });
-    }
-  },
-
-       // Crear usuario
-       async create(req: Request, res: Response): Promise<void> {
-        try {
-            const { firstName, lastName, email, phone, password, province, isActive, roleId, workerType } = req.body;
-            console.log("Datos recibidos:", JSON.stringify(req.body, null, 2));
-
-            if (!firstName || !lastName || !phone || !email || !password || isActive === undefined || !roleId) {
-                res.status(400).json({ message: "All fields must be provided" });
-                return;
-            }
-
-            const hashedPassword = await bcrypt.hash(password, 10);
-
-            const role = await Role.findOne({ where: { id: roleId } });
-            if (!role) {
-                res.status(400).json({ message: "Invalid role ID" });
-                return;
-            }
-
-            const newUser = User.create({
-                firstName: firstName,
-                lastName: lastName,
-                province: province,
-                email: email,
-                phone: phone,
-                password: hashedPassword,
-                isActive: isActive,
-                role: role,
-                avatar: "https://avatars.githubusercontent.com/u/27661552", // Valor por defecto para avatar
-            });
-
-            if (role.name === 'manager') {
-                const validWorkerTypes = ['mechanic', 'quick_service', 'painter', 'bodyworker'];
-                if (!workerType || !validWorkerTypes.includes(workerType)) {
-                    res.status(400).json({ message: "Invalid or missing worker type for manager role" });
-                    return;
-                }
-                newUser.workerType = workerType;
-            }
-
-            await newUser.save();
-
-            res.status(201).json({ message: "User has been created", user: newUser });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: "Error al crear usuario" });
-        }
-    },
 
     // Actualizar datos de usuario
-async  update(req: Request<{ id: string }, {}, Partial<User>>, res: Response): Promise<void> {
+    async  update(req: Request<{ id: string }, {}, Partial<User>>, res: Response): Promise<void> {
     try {
         const userId = Number(req.params.id);
         const { password, role, ...userData } = req.body;
@@ -205,7 +206,7 @@ async  update(req: Request<{ id: string }, {}, Partial<User>>, res: Response): P
         console.error(error);
         res.status(500).json({ message: "Failed to update user" });
     }
-  },
+    },
 
     // Ver perfil usuario-----------
 
@@ -235,12 +236,12 @@ async  update(req: Request<{ id: string }, {}, Partial<User>>, res: Response): P
     },
 
     
-// Actualizar perfil
+    // Actualizar perfil
 
-async updateProfile(
+    async updateProfile(
     req: Request<{ }, {}, Partial<User>>,
     res: Response
-  ): Promise<void> {
+    ): Promise<void> {
     const userId = Number(req.tokenData.userId);
     
     // Verifica si userId es un número válido
@@ -291,7 +292,7 @@ async updateProfile(
       console.error('Error in updateProfile:', error);
       res.status(500).json({ message: "Failed to update user" });
     }
-  },
+    },
 
 
   
