@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "../models/User";
 import { Role } from "../models/Role";
+import { Auth } from "typeorm";
 import { Like } from "typeorm";
 import bcrypt from "bcrypt"
 import { UserRoles } from "../constants/UserRoles";
@@ -205,6 +206,93 @@ async  update(req: Request<{ id: string }, {}, Partial<User>>, res: Response): P
         res.status(500).json({ message: "Failed to update user" });
     }
   },
+
+    // Ver perfil usuario-----------
+
+    async getProfile(req: Request, res: Response): Promise<void> {
+        try {
+            const userId = req.tokenData.userId;
+    
+            console.log(userId);
+     
+            const user = await User.findOne({
+                relations: ["role"],
+                where: { id: userId }
+            });
+    
+            if (!user) {
+                res.status(404).json({ message: "User not found" });
+                return;
+            }
+    
+            
+            
+            res.json(user);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Failed to retrieve user profile" });
+        }
+    },
+
+    
+// Actualizar perfil
+
+async updateProfile(
+    req: Request<{ }, {}, Partial<User>>,
+    res: Response
+  ): Promise<void> {
+    const userId = Number(req.tokenData.userId);
+    
+    // Verifica si userId es un número válido
+    if (isNaN(userId) || !userId) {
+      console.error('Invalid user ID in updateProfile:', req.tokenData.userId);
+      res.status(400).json({ message: "patata" });
+      console.log(userId);
+      
+      return;
+    }
+  
+    try {
+      console.log('Token Data in request:', req.tokenData);
+      console.log('User ID from token in updateProfile:', req.tokenData.userId);
+      console.log('Converted User ID in updateProfile:', userId);
+  
+      console.log('Proceeding with valid user ID:', userId);
+  
+      const { password, role, ...resUserData } = req.body;
+  
+      console.log('Request body:', req.body);
+  
+      const userToUpdate = await User.findOne({
+        where: { id: userId },
+      });
+  
+      console.log('User to update:', userToUpdate);
+  
+      if (!userToUpdate) {
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
+  
+      if (password) {
+        const hashedPassword = bcrypt.hashSync(password, 10);
+        userToUpdate.password = hashedPassword;
+      }
+  
+      Object.assign(userToUpdate, resUserData);
+  
+      console.log('Updated user object before saving:', userToUpdate);
+  
+      await User.save(userToUpdate);
+      console.log('Updated User in updateProfile:', userToUpdate);
+  
+      res.status(202).json({ message: "User update successful" });
+    } catch (error) {
+      console.error('Error in updateProfile:', error);
+      res.status(500).json({ message: "Failed to update user" });
+    }
+  }
+  
 
 
 

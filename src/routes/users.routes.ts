@@ -1,5 +1,6 @@
 import express from "express";
 import { userController } from "../controllers/userController";
+import { auth } from "../middlewares/auth";
 
 const router = express.Router();
 //-----------------
@@ -25,6 +26,11 @@ router.put("/:id",userController.update);
 // Eliminar usuario
 router.delete("/:id",userController.delete);
 
+// Ver perfil personal de usuario
+router.get("/profile/profile",auth,userController.getProfile);
+
+// Actualizar perfil personal usuario
+router.put("/profile/patata", auth, userController.updateProfile);
 
 export default router;
 

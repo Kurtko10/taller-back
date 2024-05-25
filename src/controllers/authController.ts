@@ -49,62 +49,62 @@ export const authController = {
         }
     },
 
-    async login(req: Request, res: Response): Promise<void> {
-      try {
-          const { email, password } = req.body;
+        async login(req: Request, res: Response): Promise<void> {
+        try {
+            const { email, password } = req.body;
 
-          if (!email || !password) {
-              res.status(400).json({
-                  message: "All fields must be provided",
-              });
-              return;
-          }
+            if (!email || !password) {
+                res.status(400).json({
+                    message: "All fields must be provided",
+                });
+                return;
+            }
 
-          const user = await User.findOne({
-              relations: { role: true },
-              select: { id: true, email: true, password: true, firstName: true },
-              where: { email: email },
-          });
-          if (!user) {
-              res.status(400).json({
-                  message: "Bad credentials",
-              });
-              return;
-          }
+            const user = await User.findOne({
+                relations: { role: true },
+                select: { id: true, email: true, password: true, firstName: true },
+                where: { email: email },
+            });
+            if (!user) {
+                res.status(400).json({
+                    message: "Bad credentials",
+                });
+                return;
+            }
 
-          const isPasswordMatch = bcrypt.compareSync(password, user.password);
-          if (!isPasswordMatch) {
-              res.status(400).json({
-                  message: "Bad credentials",
-              });
-              return;
-          }
+            const isPasswordMatch = bcrypt.compareSync(password, user.password);
+            if (!isPasswordMatch) {
+                res.status(400).json({
+                    message: "Bad credentials",
+                });
+                return;
+            }
 
-          const tokenPayload: TokenData = {
-              userId: user.id,
-              userRole: user.role.name,
-              userName: user.firstName,
-          };
+            const tokenPayload: TokenData = {
+                userId: user.id,
+                userRole: user.role.name,
+                //userName: user.firstName,
+            };
 
-          const token = jwt.sign(
-              tokenPayload,
-              process.env.JWT_SECRET as string,
-              {
-                  expiresIn: "3h",
-              }
-          );
+            const token = jwt.sign(
+                tokenPayload,
+                process.env.JWT_SECRET as string,
+                {
+                    expiresIn: "3h",
+                }
+            );
 
-          res.status(200).json({
-              message: "Login successfully",
-              token,
-              user,
-          });
+            res.status(200).json({
+                message: "Login successfully",
+                token,
+                user,
+            });
 
-      } catch (error) {
-          res.status(500).json({
-              message: "Failed to login user",
-              error: (error as any).message,
-          });
-      }
-  },
+        } catch (error) {
+            res.status(500).json({
+                message: "Failed to login user",
+                error: (error as any).message,
+            });
+        }
+    },
    };
