@@ -30,7 +30,8 @@ router.delete("/:id",userController.delete);
 router.get("/profile/profile",auth,userController.getProfile);
 
 // Actualizar perfil personal usuario
-router.put("/profile/patata", auth, userController.updateProfile);
+router.put("/profile/profile", auth, userController.updateProfile);
+
 
 export default router;
 
