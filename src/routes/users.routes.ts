@@ -17,20 +17,23 @@ router.get("/role/clients",auth,authorize(["manager"]), userController.getByClie
 // Obtener todos los trabajadores
 router.get("/role/managers", userController.getByManagerRole);
 
+// Ver perfil personal de usuario
+router.get("/profile/profile",auth,userController.getProfile);//user
+
 
 // Crear usuario
 router.post("/",auth,authorize([]),userController.create);//admin
+
 // Actualizar usuario por ID
 router.put("/:id",auth,authorize([]),userController.update);//admin
 
 // Eliminar usuario
 router.delete("/:id",auth,authorize(["user"]),userController.delete);//admin
 
-// Ver perfil personal de usuario
-router.get("/profile/profile",auth,userController.getProfile);//user
+
 
 // Actualizar perfil personal usuario
-router.put("/profile/profile",auth,authorize(["manager","user"]), auth, userController.updateProfile);//user
+router.put("/profile/profile",auth,authorize(["manager","user"]), auth, userController.updateProfile);//user, manager, admin
 
 
 export default router;

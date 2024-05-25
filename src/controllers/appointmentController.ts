@@ -237,7 +237,7 @@ async  createAppointment(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        // Convertir la fecha de la cita a un objeto Date en UTC
+        // Convertir la fecha de la cita 
         const appointmentDate = new Date(date);
 
         // Convertir la hora UTC a la hora local de Madrid
@@ -276,13 +276,13 @@ async  createAppointment(req: Request, res: Response): Promise<void> {
         }
 
         // Obtener la duración del servicio
-        let appointmentDuration = 4; // Por defecto, 2 horas
+        let appointmentDuration = 4; 
         if (service_id === 2) {
-            appointmentDuration = 1; // Para el servicio con id 2, 3 horas
+            appointmentDuration = 1;
         } else if (service_id === 3) {
-            appointmentDuration = 4; // Para el servicio con id 3, 1 hora
+            appointmentDuration = 4; 
         } else if (service_id === 4) {
-            appointmentDuration = 1; // Para el servicio con id 4, 3 horas
+            appointmentDuration = 1; 
         }
 
         // Buscar todas las citas existentes del trabajador y del cliente

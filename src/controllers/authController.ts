@@ -8,6 +8,7 @@ import { TokenData } from "../types/types";
 // -----------------------------------------------------------------------------
 
 export const authController = {
+    // registrar un nuevo usuario
     async register(req: Request, res: Response): Promise<void> {
         try {
          

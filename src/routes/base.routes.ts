@@ -4,7 +4,7 @@ const router = express.Router();
 
 // Base router
 router.get("/", (req: Request, res: Response) => {      
-    res.send("Welcome to hell");             
+    res.send("Welcome");             
 });
 
 export default router; 
