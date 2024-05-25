@@ -5,13 +5,10 @@ import { auth } from "../middlewares/auth";
 
 const router = express.Router();
 
-// Ruta para obtener todos los coches
-//router.get("/", carController.getAllCars);
-
-// Ver coches de un usuario
-//router.get("/users", auth, carController.getUserCar);
 
 router.get('/',carController.getAllCars);
 router.get('/cars', auth, carController.getUserCar);
+router.post('/cars/userCars', auth, carController.addUserCar);
+router.delete('/cars/userCars/:carId', auth, carController.deleteUserCar);
 
 export default router;
