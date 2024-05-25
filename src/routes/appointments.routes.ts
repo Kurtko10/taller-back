@@ -7,7 +7,11 @@ const router = express.Router();
 
 // Citas totales ADMIN
 router.get('/', appointmentController.getAllAppointments);
+// Citas de un trabajador
+router.get('/worker', auth, appointmentController.getAppointmentsByWorkerId);
 
+// Citas de un cliente
+router.get('/client/:clientId?', auth, appointmentController.getAppointmentsByClientId);
 
 
 
