@@ -30,10 +30,8 @@ router.put("/:id",auth,authorize([]),userController.update);//admin
 // Eliminar usuario
 router.delete("/:id",auth,authorize(["user"]),userController.delete);//admin
 
-
-
 // Actualizar perfil personal usuario
-router.put("/profile/profile",auth,authorize(["manager","user"]), auth, userController.updateProfile);//user, manager, admin
+router.put("/profile/profile",auth, userController.updateProfile);
 
 
 export default router;

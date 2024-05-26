@@ -29,53 +29,54 @@ export const userController ={
         
     // Crear usuario
     async create(req: Request, res: Response): Promise<void> {
-                try {
-                    const { firstName, lastName, email, phone, password, province, isActive, roleId, workerType } = req.body;
-                    console.log("Datos recibidos:", JSON.stringify(req.body, null, 2));
-        
-                    if (!firstName || !lastName || !phone || !email || !password || isActive === undefined || !roleId) {
-                        res.status(400).json({ message: "All fields must be provided" });
-                        return;
-                    }
-        
-                    const hashedPassword = await bcrypt.hash(password, 10);
-        
-                    const role = await Role.findOne({ where: { id: roleId } });
-                    if (!role) {
-                        res.status(400).json({ message: "Invalid role ID" });
-                        return;
-                    }
-        
-                    const newUser = User.create({
-                        firstName: firstName,
-                        lastName: lastName,
-                        province: province,
-                        email: email,
-                        phone: phone,
-                        password: hashedPassword,
-                        isActive: isActive,
-                        role: role,
-                        avatar: "https://avatars.githubusercontent.com/u/27661552", // Valor por defecto para avatar
-                    });
-        
-                    if (role.name === 'manager') {
-                        const validWorkerTypes = ['mechanic', 'quick_service', 'painter', 'bodyworker'];
-                        if (!workerType || !validWorkerTypes.includes(workerType)) {
-                            res.status(400).json({ message: "Invalid or missing worker type for manager role" });
-                            return;
-                        }
-                        newUser.workerType = workerType;
-                    }
-        
-                    await newUser.save();
-        
-                    res.status(201).json({ message: "User has been created", user: newUser });
-                } catch (error) {
-                    console.error(error);
-                    res.status(500).json({ message: "Error al crear usuario" });
-                }
-    },
+    try {
+        const { firstName, lastName, email, phone, password, province, isActive, roleId, workerType } = req.body;
+        console.log("Datos recibidos:", JSON.stringify(req.body, null, 2));
 
+        if (!firstName || !lastName || !phone || !email || !password || isActive === undefined || !roleId) {
+            res.status(400).json({ message: "All fields must be provided" });
+            return;
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const role = await Role.findOne({ where: { id: roleId } });
+        if (!role) {
+            res.status(400).json({ message: "Invalid role ID" });
+            return;
+        }
+
+        const newUser = User.create({
+            firstName: firstName,
+            lastName: lastName,
+            province: province,
+            email: email,
+            phone: phone,
+            password: hashedPassword,
+            isActive: isActive,
+            role: role,
+            avatar: "https://avatars.githubusercontent.com/u/27661552", // Valor por defecto para avatar
+        });
+
+        if (role.name === 'manager') {
+            const validWorkerTypes = ['mechanic', 'quick_service', 'painter', 'bodyworker'];
+            if (!workerType || !validWorkerTypes.includes(workerType)) {
+                res.status(400).json({ message: "Invalid or missing worker type for manager role" });
+                return;
+            }
+            newUser.workerType = workerType;
+        }
+
+        await newUser.save();
+
+        const { password: _, ...userWithoutPassword } = newUser;
+
+        res.status(201).json({ message: "User has been created", user: userWithoutPassword });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al crear usuario" });
+    }
+},
     // Obtener todos los usuarios ADMIN 
       async getAllUsers(req: Request, res: Response): Promise<void> {
         try {
@@ -95,7 +96,7 @@ export const userController ={
         }
       },
 
-       // Obtener usuario por ID
+    // Obtener usuario por ID
     async getById(req: Request, res: Response): Promise<void> {
         try {
             const userId = Number(req.params.id);
@@ -125,7 +126,7 @@ export const userController ={
         }
     },
 
-      // Ver clientes por ID client
+    // Ver clientes por ID client
       async getByClientRole(req: Request, res: Response): Promise<void> {
         try {
             const roleId = 3; 
@@ -171,9 +172,6 @@ export const userController ={
         }
     },
 
-
-
-
     // Actualizar datos de usuario
     async  update(req: Request<{ id: string }, {}, Partial<User>>, res: Response): Promise<void> {
     try {
@@ -209,7 +207,6 @@ export const userController ={
     },
 
     // Ver perfil usuario-----------
-
     async getProfile(req: Request, res: Response): Promise<void> {
         try {
             const userId = req.tokenData.userId;
@@ -234,10 +231,8 @@ export const userController ={
             res.status(500).json({ message: "Failed to retrieve user profile" });
         }
     },
-
-    
+ 
     // Actualizar perfil
-
     async updateProfile(
     req: Request<{ }, {}, Partial<User>>,
     res: Response
@@ -293,13 +288,4 @@ export const userController ={
       res.status(500).json({ message: "Failed to update user" });
     }
     },
-
-
-  
-  
-
-
-
-
-
 }
