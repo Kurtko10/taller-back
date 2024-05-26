@@ -155,9 +155,8 @@
 - ✅ **Eliminar usuario (ADMIN)**
     - `DELETE {{BASE_URL}}/api/users/:id`
 
-
-
 </details>
+<details>
 <summary>📅 Citas 📅</summary>
 
 - ✅ **Crear Nueva Cita (introducir Token ADMIN o MANAGER)**
@@ -175,8 +174,8 @@
 
 - ✅ **Citas de un artista (introducir Token artista)**
     - `GET {{BASE_URL}}/api/appointments/artist/`
-
 </details>
+<details>
 <summary>🏎️ Vehículos 🏎️</summary>
 
 - ✅ **Crear Nuevo Vehículo**
@@ -196,3 +195,5 @@
     - `GET {{BASE_URL}}/api/appointments/artist/`
 
 </details>
+
+
