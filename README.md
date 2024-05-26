@@ -12,7 +12,7 @@
 
 ## 📋 Contenido 
 
-<details>
+
 
   <summary>📋Contenido📋</summary>
 <ol>
@@ -24,11 +24,11 @@
     <li><a href="/LICENSE">Licencia</a></li>
 </ol>
 
-</details>
+
 
 ## Tecnologías
 
-<details>
+
 <summary>➿Tecnologías➿</summary>
 
 <div align="center">
@@ -57,7 +57,6 @@
 
 </div>
 
-</details>
 
 ## Diagrama Base de Datos
 
