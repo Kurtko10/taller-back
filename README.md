@@ -16,12 +16,13 @@
 
   <summary>📋Contenido📋</summary>
 <ol>
-    <li><a href="#tecnologías-utilizadas">Tecnologías Utilizadas</a></li>
-    <li><a href="#diagrama-bd">Diagrama BD</a></li>
-    <li><a href="#instrucciones">Instrucciones</a></li>
-    <li><a href="#endpoints">Endpoints</a></li>
-    <li><a href="#contribuciones">Contribuciones</a></li>
-    <li><a href="/LICENSE">Licencia</a></li>
+    <li><a href="#tecnologías">Tecnologías Utilizadas 📡</a></li>
+    <li><a href="#diagrama-base-de-datos">Diagrama BD 🛢️</a></li>
+    <li><a href="#configuración">Configuración ⚙</a></li>
+    <li><a href="#endpoints">Endpoints 🎯</a></li>
+    <li><a href="#mejoras">Mejoras 📈 </a></li>
+    <li><a href="#contribuciones">Contribuciones 📥</a></li>
+    <li><a href="/licencia">Licencia ⚖️</a></li>
 </ol>
 
 
@@ -70,7 +71,7 @@
 <details>
 <summary>⚙ Configuración ⚙</summary>
 
-1. Clona este repositorio: `git clone [URL del repositorio]` 📥
+1. Clona este repositorio: `git clone [[Repo](https://github.com/Kurtko10/taller-back)]` 📥
 2. Instalar las dependencias: `npm install ` 💾
 3. Conectar repositorio con la base de datos mediante  variables de entorno que se encuentran en el archivo .env 📡
 
@@ -101,7 +102,7 @@
 
 ## Endpoints
 
-<details>
+
 
 <summary>🎯Endpoints🎯</summary>
 
@@ -192,4 +193,9 @@
 
 </details>
 
+## Mejoras
 
+## Contribuciones
+
+## Licencia
+  ⚖️ Proyecto bajo la Licencia MIT. LICENSE
