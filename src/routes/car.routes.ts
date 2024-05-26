@@ -10,12 +10,12 @@ const router = express.Router();
 router.get('/',auth,authorize(["manager"]),carController.getAllCars);
 
 // Obtener vehículos de un usuario
-router.get('/cars', auth, carController.getUserCar);
+router.get('/userCars', auth, carController.getUserCar);
 
 // Añadir vehículo a un usuario
-router.post('/cars/userCars', auth, carController.addUserCar);
+router.post('/userCars', auth, carController.addUserCar);
 
 // Eliminar vehículo de un usuario
-router.delete('/cars/userCars/:carId', auth, carController.deleteUserCar);
+router.delete('/userCars/:carId', auth, carController.deleteUserCar);
 
 export default router;

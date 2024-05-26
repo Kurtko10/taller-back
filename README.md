@@ -111,7 +111,7 @@
 
 - ✅ **Registrar usuario/cliente**
     - `POST {{BASE_URL}}/api/auth/register`
-    ![Register](/src/img/register.jpg)
+    - ![Register](/src/img/register.jpg)
 
 - ✅ **Login usuarios**
     - `POST {{BASE_URL}}/api/auth/login`
@@ -119,9 +119,6 @@
     - ![Token](/src/img/LoginToken.jpg)
 
 </details>
-
-
-
 <details>
 <summary>👨‍👨‍👧‍👧 Usuarios 👨‍👨‍👧‍👧</summary>
 
@@ -143,8 +140,8 @@
 
 - ✅ **Crear nuevo usuario (ADMIN)**
     - `POST {{BASE_URL}}/api/users/`
-    - ![Perfil](/src/img/CreateUser.jpg)
-    - ![Perfil](/src/img/CreateUser2.jpg)
+    - ![CrearUsuario](/src/img/CreateUser.jpg)
+    - ![UsuarioCreado](/src/img/CreateUser2.jpg)
   
 - ✅ **Actualizar perfil propio de usurio**
     - `PUT {{BASE_URL}}/api/users/profile/profile`
@@ -159,40 +156,40 @@
 <details>
 <summary>📅 Citas 📅</summary>
 
-- ✅ **Crear Nueva Cita (introducir Token ADMIN o MANAGER)**
+- ✅ **Crear Nueva Cita**
     - `POST {{BASE_URL}}/api/appointments`
-    - ![Login](/src/img/CrearCita1.jpg)
-    - ![Login](/src/img/CrearCita2.jpg)
+    - ![CrearCita](/src/img/CrearCita1.jpg)
+    - ![CitaCreada](/src/img/CrearCita2.jpg)
+
 - ✅ **Actualizar una cita por ID de cita (introducir Token login)**
     - `PUT {{BASE_URL}}/api/appointments/:appointmentId`
 
 - ✅ **Eliminar cita (ADMIN o MANAGER)**
     - `DELETE {{BASE_URL}}/api/appointments/:appointmentId`
 
-- ✅ **Citas de un cliente (introducir Token cliente)**
+- ✅ **Citas de un cliente (introducir Token cliente o Id Cliente (para ADMIN))**
     - `GET {{BASE_URL}}/api/appointments/client/`
+    - `GET {{BASE_URL}}/api/appointments/client/clientId`
 
-- ✅ **Citas de un artista (introducir Token artista)**
-    - `GET {{BASE_URL}}/api/appointments/artist/`
+- ✅ **Citas de un trabajador (introducir Token trabajador)**
+    - `GET {{BASE_URL}}/api/appointments/worker/`
 </details>
 <details>
 <summary>🏎️ Vehículos 🏎️</summary>
 
-- ✅ **Crear Nuevo Vehículo**
-    - `POST {{BASE_URL}}/api/appointments`
-    - ![Login](/src/img/CrearCita1.jpg)
-    - ![Login](/src/img/CrearCita2.jpg)
-- ✅ **Actualizar una cita por ID de cita (introducir Token login)**
-    - `PUT {{BASE_URL}}/api/appointments/:appointmentId`
+- ✅ **Añadir vehículo a un usuario (introducir Token login)**
+    - `POST {{BASE_URL}}/api/cars/userCars`
+    - ![Añadir Vehículo](/src/img/añadircar.jpg)
 
-- ✅ **Eliminar cita (ADMIN o MANAGER)**
-    - `DELETE {{BASE_URL}}/api/appointments/:appointmentId`
+- ✅ **Eliminar vehículo (ADMIN o MANAGER)**
+    - `DELETE {{BASE_URL}}/api/cars/userCars/:carId`
 
-- ✅ **Citas de un cliente (introducir Token cliente)**
-    - `GET {{BASE_URL}}/api/appointments/client/`
+- ✅ **Ver todos los vehículos (ADMIN o MANAGER)**
+    - `GET {{BASE_URL}}/api/cars`
 
-- ✅ **Citas de un artista (introducir Token artista)**
-    - `GET {{BASE_URL}}/api/appointments/artist/`
+- ✅ **Ver vehículos de un usuario (introducir Token)**
+    - `GET {{BASE_URL}}/api/cars/userCars`
+    - ![Mostrar Vehículo](/src/img/vercar.jpg)
 
 </details>
 
