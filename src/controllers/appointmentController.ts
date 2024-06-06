@@ -215,7 +215,7 @@ async getAppointmentById(req: Request, res: Response): Promise<void> {
                 licensePlate: appointment.car.licensePlate,
                 carBrand: appointment.car.carBrand,
                 model: appointment.car.model,
-                year: appointment.car.year
+                year: appointment.car.year,
             } : null,
         };
 

@@ -38,13 +38,16 @@ export const authController = {
             });
             
             await newUser.save();
-
+            console.log(newUser);
+            
             res.status(201).json({
-                message:  "Client created successfully",
+                message:  "¡Gracias por registrarte!",
+                
+                
             });
         } catch (error) {
             res.status(500).json({
-                message: "Failed to create client"
+                message: "Error al registrar el usuario"
                 
             });
         }
@@ -84,14 +87,14 @@ export const authController = {
             const tokenPayload: TokenData = {
                 userId: user.id,
                 userRole: user.role.name,
-                //userName: user.firstName,
+                userName: user.firstName,
             };
 
             const token = jwt.sign(
                 tokenPayload,
                 process.env.JWT_SECRET as string,
                 {
-                    expiresIn: "3h",
+                    expiresIn: "10h",
                 }
             );
 

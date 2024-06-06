@@ -23,7 +23,7 @@ router.post('/', auth, appointmentController.createAppointment);
 router.put('/:id',auth,authorize(["manager", "user"]), appointmentController.updateAppointment);
 
 // Eliminar una cita
-router.delete('/:id', auth,authorize(["user"]), appointmentController.deleteAppointment);
+router.delete('/:id', auth, appointmentController.deleteAppointment);
 
 
 export default router;

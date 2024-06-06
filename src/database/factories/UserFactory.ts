@@ -12,7 +12,7 @@ export class UserFactory extends Factory<User>{
         const role = roles[Math.floor(Math.random() * roles.length)];
 
         // Genera un workerType aleatorio solo si el rol es MANAGER
-        const workerTypes = ['mechanic', 'quick_service', 'painter', 'bodyworker'];
+        const workerTypes = ['mechanic', 'quick_service', 'air_conditioning', 'bodyworker'];
         const workerType = role.name === 'manager' ? faker.helpers.arrayElement(workerTypes) : null;
 
         return {
