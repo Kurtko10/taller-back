@@ -22,7 +22,7 @@ router.get("/profile/profile",auth,userController.getProfile);//user
 
 
 // Crear usuario
-router.post("/",auth,authorize([]),userController.create);//admin
+router.post("/",auth,authorize(["manager"]),userController.create);//admin
 
 // Actualizar usuario por ID
 router.put("/:id",auth,authorize([]),userController.update);//admin
