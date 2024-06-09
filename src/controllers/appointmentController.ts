@@ -330,7 +330,6 @@ async  createAppointment(req: Request, res: Response): Promise<void> {
         await appointment.save();
 
         // Enviar respuesta con el código 201 y los datos de la cita
-        console.log("Code 201: Appointment created successfully");
         res.status(201).json({
             message: "Appointment created successfully",
             appointment
@@ -441,7 +440,6 @@ async updateAppointment(req: Request, res: Response): Promise<void> {
 
         await appointment.save(); 
 
-        console.log("Code 200: Appointment updated successfully");
         res.status(200).json({
             message: "Appointment updated successfully",
             appointment: {

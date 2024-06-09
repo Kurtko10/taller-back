@@ -36,14 +36,12 @@ export const carController = {
     async getUserCar(req: Request, res: Response): Promise<void> {
     try {
         const userId = req.tokenData.userId;
-        console.log('User ID:', userId);
 
         const user = await User.findOne({
             where: { id: userId },
             relations: ['userCars', 'userCars.car'],
         });
 
-        console.log('User:', user);
 
         if (!user || !user.userCars || user.userCars.length === 0) {
             res.status(404).json({ message: "No car" });
@@ -65,7 +63,6 @@ export const carController = {
             phone: user.phone,
             cars: userCars
         };
-        console.log(result);
         
         res.status(200).json(result);
     } catch (error) {
@@ -80,11 +77,9 @@ export const carController = {
         try {
             // Verificar token para autorización
             const tokenData = req.tokenData;
-            console.log('Token Data:', tokenData);
     
             // Obtener userId de la URL y convertirlo a número
             const userId = Number(req.params.userId);
-            console.log('User ID:', userId);
     
             if (isNaN(userId)) {
                 res.status(400).json({ message: "Invalid user ID" });
@@ -96,8 +91,6 @@ export const carController = {
                 where: { id: userId },
                 relations: ['userCars', 'userCars.car'],
             });
-    
-            console.log('User:', user);
     
             // Manejar el caso de que no se encuentren coches
             if (!user || !user.userCars || user.userCars.length === 0) {
@@ -122,7 +115,6 @@ export const carController = {
                 phone: user.phone,
                 cars: userCars
             };
-            console.log(result);
             
             // Enviar la respuesta
             res.status(200).json(result);
@@ -185,7 +177,6 @@ async addUserCar(req:Request, res: Response) {
           year: newCar.year,
         },
       };
-      console.log("Esto no debe llegar",result);
       
       res.status(201).json(result);
     } catch (error) {
@@ -236,7 +227,6 @@ async addUserCar(req:Request, res: Response) {
           year: newCar.year,
         },
       };
-      console.log("Esto esta llegando",result);
       
       res.status(201).json(result);
     } catch (error) {

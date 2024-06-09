@@ -28,8 +28,6 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
 
-        console.log('Decoded token:', decoded);
-
         if (typeof decoded.userId !== 'number' || isNaN(Number(decoded.userId))) {
             throw new Error("Invalid token payload: userId is not a number");
         }
@@ -39,13 +37,10 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
             userRole: decoded.userRole
            // userName: decoded.firstName
         };
-        console.log(decoded.userId);
-        
-        console.log('Token Data in auth middleware:', req.tokenData);
 
         next();
     } catch (error) {
-        console.error('Authentication error:', error);
+        
         res.status(401).json({
             message: "Invalid token provided",
         });

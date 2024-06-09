@@ -38,7 +38,6 @@ export const authController = {
             });
             
             await newUser.save();
-            console.log(newUser);
             
             res.status(201).json({
                 message:  "¡Gracias por registrarte!",

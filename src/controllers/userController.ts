@@ -31,7 +31,6 @@ export const userController ={
     async create(req: Request, res: Response): Promise<void> {
     try {
         const { firstName, lastName, email, phone, password, province, isActive, roleId, workerType } = req.body;
-        console.log("Datos recibidos:", JSON.stringify(req.body, null, 2));
 
         if (!firstName || !lastName || !phone || !email || !password || isActive === undefined || !roleId) {
             res.status(400).json({ message: "All fields must be provided" });
@@ -117,7 +116,6 @@ export const userController ={
                 res.status(404).json({ message: "User not found" });
                 return;
             }
-            console.log("Tu usuario",user);
             
             res.json(user);
         } catch (error) {
@@ -210,8 +208,6 @@ export const userController ={
     async getProfile(req: Request, res: Response): Promise<void> {
         try {
             const userId = req.tokenData.userId;
-    
-            console.log(userId);
      
             const user = await User.findOne({
                 relations: ["role"],
@@ -243,27 +239,17 @@ export const userController ={
     if (isNaN(userId) || !userId) {
       console.error('Invalid user ID in updateProfile:', req.tokenData.userId);
       res.status(400).json({ message: "patata" });
-      console.log(userId);
       
       return;
     }
   
     try {
-      console.log('Token Data in request:', req.tokenData);
-      console.log('User ID from token in updateProfile:', req.tokenData.userId);
-      console.log('Converted User ID in updateProfile:', userId);
-  
-      console.log('Proceeding with valid user ID:', userId);
   
       const { password, role, ...resUserData } = req.body;
-  
-      console.log('Request body:', req.body);
   
       const userToUpdate = await User.findOne({
         where: { id: userId },
       });
-  
-      console.log('User to update:', userToUpdate);
   
       if (!userToUpdate) {
         res.status(404).json({ message: "User not found" });
@@ -277,10 +263,7 @@ export const userController ={
   
       Object.assign(userToUpdate, resUserData);
   
-      console.log('Updated user object before saving:', userToUpdate);
-  
       await User.save(userToUpdate);
-      console.log('Updated User in updateProfile:', userToUpdate);
   
       res.status(202).json({ message: "User update successful" });
     } catch (error) {
